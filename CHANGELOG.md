@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.5.1] - 2026-11-16
+
+Re-pinned the upstream runtime from `pi-lens@4.5.0` to **`pi-lens@4.5.1`**. The facade (`index.ts`) is unchanged; only the pin, the lockfile and the documentation moved.
+
+### Relevant upstream changes
+
+- The commit gate now judges only what is actually staged: blockers already present in a file no longer reject the commit, and the gate sees escapes the old character scan missed — `bash -c` / `eval` substitutions and Unicode whitespace (upstream #5553, #5649, #5650, #5652).
+- Language-server calls finish cleanly when interrupted.
+
+### Verification
+
+- `npm run check` passes: TypeScript is clean and `tests/facade.test.mjs` passes 8/8, including routing against the real `pi-lens@4.5.1` schemas.
+- The tool surface is unchanged between 4.5.0 and 4.5.1: dumping the registered `registerTool` definitions from both versions yields the same 13 tools with identical character counts (4,772 tokens by the `ceil(characters / 4)` proxy). The model-facing contribution documented in the README (Lean 394, upstream 2,733) therefore carries over unchanged.
+
 ## [4.5.0] - 2026-11-14
 
 Re-pinned the upstream runtime from `pi-lens@4.4.12` to **`pi-lens@4.5.0`**. The facade (`index.ts`) is unchanged; only the pin, lockfile and documentation moved.
