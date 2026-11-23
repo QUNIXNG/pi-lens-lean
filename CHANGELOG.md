@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.5.2] - 2026-11-22
+
+Re-pinned the upstream runtime from `pi-lens@4.5.1` to **`pi-lens@4.5.2`**. The facade (`index.ts`) is unchanged; only the pin, the lockfile and the documentation moved.
+
+Upstream 4.5.2 is a language-server and tooling release: the diagnostics widget can move above the editor or hide when clean (`widget.position`, `widget.hideWhenClean`), Esc now cancels a project-wide `lens_diagnostics` pull and the TypeScript project probe, language servers are released on idle and end with the pi/MCP process that started them, Deno projects use the Deno language server, and rubocop/rustfmt/rust-clippy are no longer installed without asking. `jscpd` pinned to 5.4.3. None of this changes the registered tool surface.
+
+The lockfile also moves `@ast-grep/cli` from 0.51.1 to 0.51.2 and drops the two musl builds that upstream no longer publishes; `npm install` under npm 11 additionally rewrites `dev: true` to `devOptional: true` for 116 transitive entries, which is npm's own bookkeeping rather than a dependency change.
+
+**Verification**
+
+- `npm run check` passes: TypeScript is clean and `tests/facade.test.mjs` passes 8/8, including routing against the real `pi-lens@4.5.2` schemas.
+- The tool surface is unchanged between 4.5.1 and 4.5.2: dumping the registered `registerTool` definitions from both versions yields the same 13 tools with identical character counts (4,723 tokens by the `ceil(characters / 4)` proxy). The model-facing contribution documented in the README (Lean 394, upstream 2,733) therefore carries over unchanged.
+
 ## [4.5.1] - 2026-11-16
 
 Re-pinned the upstream runtime from `pi-lens@4.5.0` to **`pi-lens@4.5.1`**. The facade (`index.ts`) is unchanged; only the pin, the lockfile and the documentation moved.
